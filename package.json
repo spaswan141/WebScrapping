@@ -19,6 +19,7 @@
   "homepage": "https://github.com/spaswan141/WebScrapping#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
+    "express": "^4.18.2",
     "json2csv": "^5.0.7",
     "request-promise": "^4.2.6"
   }
