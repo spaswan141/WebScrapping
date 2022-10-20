@@ -55,18 +55,23 @@ rp(reqLink)
     //....................To Export Data to Csv File......................//
     const json2csvParser = new Parser();
     const csvData = json2csvParser.parse(data);
+    //console.log(csvData)
     fs.writeFile("webScrappingData.csv", csvData, (err) => {
       if (err) throw err;
       console.log("Successfully File Saved");
     });
+    
 
-    //console.log(data)
-    // app.get('/get-csv',((req,res)=>{
-
-    // }))
-    // app.listen(3001,(()=>{
-    //     console.log('running')
-    // }))
+    app.get('/',((req,res)=>{
+        const json2csvParser = new Parser();
+        const csvData = json2csvParser.parse(data);
+        res.attachment("webScrappingData.csv")
+        res.status(200).send(csvData)
+    }))
+    const PORT = process.env.PORT || 8080;
+    app.listen(PORT,(()=>{
+        console.log(`server listening on http://localhost:${PORT}`)
+    }))
   })
   .catch((err) => {
     console.log(err);
