@@ -11,6 +11,7 @@ rp(reqLink)
   .then((html) => {
     const $ = cheerio.load(html);
 
+    //.................Fetching the data by selectors.................//
     const title = $("div.SearchResultsNew> div> div> div> h3> a");
 
     const price = $(
@@ -21,7 +22,9 @@ rp(reqLink)
     const itemNumber = $(".iNumber");
     const category = $("h1.current");
 
-    let array = [];
+
+  //........Push the data in array.......//  
+    let data = [];
 
     for (let i = 0; i < 10; i++) {
       // console.log(modelNumber[i].children[0].data);
@@ -29,9 +32,10 @@ rp(reqLink)
       // console.log(title[i].attribs.title);
       //console.log(price[i].children[0].data)
       //console.log(category[0].children[0].data)
-      let newarray = [];
+      
+      let descriptionArray = [];
       for (let j = 0; j < description[i].children.length; j++) {
-        newarray.push(description[i].children[j].attribs.title);
+        descriptionArray.push(description[i].children[j].attribs.title);
       }
 
       let object = {
@@ -40,14 +44,18 @@ rp(reqLink)
         "Product Name": title[i].attribs.title,
         "Product Price": price[i].children[0].data,
         "Product Category": category[0].children[0].data,
-        "Product Description": newarray,
+        "Product Description": descriptionArray,
       };
-      array.push(object);
+      data.push(object);
     }
     //console.log(array);
+
+
+
+    //....................To Export Data to Csv File......................//
     const json2csvParser = new Parser();
-    const data = json2csvParser.parse(array);
-    fs.writeFile("webScrappingData", data, (err) => {
+    const csvData = json2csvParser.parse(data);
+    fs.writeFile("webScrappingData", csvData, (err) => {
       if (err) throw err;
       console.log("Successfully File Saved");
     });
