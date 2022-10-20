@@ -55,7 +55,7 @@ rp(reqLink)
     //....................To Export Data to Csv File......................//
     const json2csvParser = new Parser();
     const csvData = json2csvParser.parse(data);
-    fs.writeFile("webScrappingData", csvData, (err) => {
+    fs.writeFile("webScrappingData.csv", csvData, (err) => {
       if (err) throw err;
       console.log("Successfully File Saved");
     });
