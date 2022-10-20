@@ -56,7 +56,7 @@ rp(reqLink)
     const json2csvParser = new Parser();
     const csvData = json2csvParser.parse(data);
     //console.log(csvData)
-    fs.writeFile("webScrappingData.csv", csvData, (err) => {
+    fs.writeFile("Top10ProductsData.csv", csvData, (err) => {
       if (err) throw err;
       console.log("Successfully File Saved");
     });
@@ -65,7 +65,7 @@ rp(reqLink)
     app.get('/',((req,res)=>{
         const json2csvParser = new Parser();
         const csvData = json2csvParser.parse(data);
-        res.attachment("webScrappingData.csv")
+        res.attachment("Top10ProductsData.csv")
         res.status(200).send(csvData)
     }))
     
